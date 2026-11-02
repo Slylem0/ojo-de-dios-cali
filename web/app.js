@@ -116,6 +116,7 @@
     },
   });
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "bottom-right");
+  window.ojo = { map }; // debug/automation handle (demo recordings)
 
   const layerOn = {
     aircraft: true, trails: true, det: true, quakes: true, poi: true, rings: true, terrain: true,

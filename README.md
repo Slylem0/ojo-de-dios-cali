@@ -1,5 +1,7 @@
 # 👁️ Ojo de Dios · Cali
 
+![Ojo de Dios · Cali: an airliner locked over the Pacific coast, seen in NVG, EO and FLIR](docs/media/cover.jpg)
+
 **A "god's-eye view" surveillance console for the sky over Cali, Valle del Cauca (Colombia). It shows live aircraft from public ADS-B transponders on top of Amazon Location Service imagery and 3D terrain, and replays the day's traffic from an archive the app records to S3.**
 
 🔴 **Live map:** https://d1im1mt9hnfpi0.cloudfront.net · 🎬 **Demo video:** https://youtu.be/j7bAz1Dp_no
