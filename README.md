@@ -2,7 +2,7 @@
 
 **A "god's-eye view" surveillance console for the sky over Cali, Valle del Cauca (Colombia). It shows live aircraft from public ADS-B transponders on top of Amazon Location Service imagery and 3D terrain, and replays the day's traffic from an archive the app records to S3.**
 
-🔴 **Live map:** https://d1im1mt9hnfpi0.cloudfront.net
+🔴 **Live map:** https://d1im1mt9hnfpi0.cloudfront.net · 🎬 **Demo video:** https://youtu.be/j7bAz1Dp_no
 
 > *Ojo de Dios* ("God's Eye") is the surveillance system in *Fast & Furious 7*. Most of what a "spy satellite" console shows is public: every airliner broadcasts its position over ADS-B. This project points that idea at my city. It has a tactical HUD, FLIR, NVG and CRT sensor modes, detection boxes, and click-to-track. Every number on screen comes from real, open data.
 
