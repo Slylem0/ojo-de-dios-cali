@@ -1,0 +1,3 @@
+infra/.state/
+node_modules/
+web/config.js

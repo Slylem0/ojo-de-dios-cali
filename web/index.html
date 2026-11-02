@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ojo de Dios · Cali</title>
+  <meta name="description" content="Vigilancia aérea en vivo sobre Cali, Valle del Cauca — ADS-B real, Amazon Location Service, AWS Lambda y S3." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%2339ff88' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%2339ff88'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body data-sensor="normal">
+  <div id="map"></div>
+  <div id="fx" aria-hidden="true"><div class="scan"></div><div class="vignette"></div><div class="noise"></div></div>
+  <div id="det" aria-hidden="true"></div>
+
+  <!-- Reticle -->
+  <div id="reticle" aria-hidden="true">
+    <span class="r-h"></span><span class="r-v"></span><span class="r-c"></span>
+  </div>
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+
+  <header id="top">
+    <div class="brand"><span class="eye"></span>OJO DE DIOS <b>// CALI</b></div>
+    <div class="class-strip">CLASIFICADO // VALLE DEL CAUCA // SOLO DATOS PÚBLICOS</div>
+    <div class="clocks">
+      <span id="rec" class="rec">● EN VIVO</span>
+      <span id="clock-cot">--:--:-- COT</span>
+      <span id="clock-utc" class="dim">--:--:--Z</span>
+    </div>
+  </header>
+
+  <aside id="left" class="panel">
+    <section>
+      <h3>SENSOR</h3>
+      <div class="seg" id="sensor">
+        <button data-v="normal" class="on">EO</button>
+        <button data-v="nvg">NVG</button>
+        <button data-v="flir">FLIR</button>
+        <button data-v="crt">CRT</button>
+      </div>
+    </section>
+    <section>
+      <h3>BASE</h3>
+      <div class="seg" id="basemap">
+        <button data-v="Satellite" class="on">SAT</button>
+        <button data-v="Hybrid">HÍBRIDO</button>
+        <button data-v="Monochrome">TÁCTICO</button>
+      </div>
+    </section>
+    <section>
+      <h3>CAPAS</h3>
+      <label><input type="checkbox" data-layer="aircraft" checked /> Aeronaves ADS-B</label>
+      <label><input type="checkbox" data-layer="trails" checked /> Estelas</label>
+      <label><input type="checkbox" data-layer="det" checked /> Detección</label>
+      <label><input type="checkbox" data-layer="quakes" checked /> Sismos (USGS 1 año)</label>
+      <label><input type="checkbox" data-layer="poi" checked /> Puntos de Cali</label>
+      <label><input type="checkbox" data-layer="rings" checked /> Anillos de distancia</label>
+      <label><input type="checkbox" data-layer="terrain" checked /> Terreno 3D</label>
+    </section>
+    <section>
+      <h3>IR A</h3>
+      <div id="poi-list" class="poi-list"></div>
+    </section>
+  </aside>
+
+  <aside id="right" class="panel">
+    <section class="search">
+      <h3>BUSCAR · AMAZON LOCATION</h3>
+      <form id="search"><input id="q" placeholder="dirección, barrio o lugar en Cali…" autocomplete="off" /></form>
+      <div id="results"></div>
+    </section>
+    <section id="target" hidden>
+      <h3>OBJETIVO RASTREADO <button id="untrack" class="x" title="Soltar (Esc)">✕</button></h3>
+      <div id="target-body"></div>
+    </section>
+    <section>
+      <h3>CONTACTOS <span id="n-contacts" class="badge">0</span></h3>
+      <div id="contacts"></div>
+    </section>
+  </aside>
+
+  <footer id="bottom">
+    <div class="timeline">
+      <div class="seg" id="mode">
+        <button data-v="live" class="on">EN VIVO</button>
+        <button data-v="replay">REPLAY 3H</button>
+      </div>
+      <button id="play" class="icon" hidden>❚❚</button>
+      <input id="scrub" type="range" min="0" max="0" value="0" hidden />
+      <span id="replay-time" class="dim"></span>
+    </div>
+    <div class="telemetry">
+      <span id="t-cursor">LAT --.---- LON --.----</span>
+      <span id="t-cam">ALT CAM -- · INCL --° · RUMBO --°</span>
+      <span id="t-stats" class="dim"></span>
+    </div>
+  </footer>
+
+  <div id="pin-card" class="panel" hidden></div>
+  <div id="toast" hidden></div>
+
+  <div id="boot">
+    <div class="boot-inner">
+      <div class="boot-eye"></div>
+      <pre id="boot-log"></pre>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
